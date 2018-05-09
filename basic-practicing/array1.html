@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+
+  <script>
+    // 构造函数定义数组
+    /*  var 数组名 = new Array();
+      var 数组名 = new Array(4);
+      var 数组名 = new Array(a, b, c);
+      // 字面量定义数组
+      var arr = [];
+      var arr = [a, b, c];
+      var arr = [];
+      arr[0] = 10;
+      arr[1] = 10;
+      arr[2] = 10;*/
+
+    /* 求数组的和
+    var arr = [10, 20, 30, 40, 50];
+    var sum = 0;
+    for (var i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+    console.log(sum);*/
+
+    /*求数组的最大值
+        var arr = [10, 20, 30, 40, 50];
+        var max = arr[0];  /*注意不能选为0之类的数，因为可能其他的数都比他小  或者var max = Number.MIN_VALUE*/
+    /*  for (var i = 1; i < arr.length; i++) {
+          if (max < arr[i]) {
+            max = arr[i];
+          }
+      }
+      console.log(max);*/
+    /**/
+
+    /*    求数组的最小值*/
+    /*var arr = [10, 20, 30, 40, 50];
+    var min = Number.MAX_VALUE;
+    for (var i = 0; i < arr.length; i++) {
+        if (min > arr[i]) {
+          min = arr[i];
+        }
+    }
+    console.log(min);*/
+
+    // 将字符串数组用|或其他符号隔开
+    /*var arr = ["a", "b","c","d","e"]
+    var blank = " "
+    for (i = 0; i < arr.length; i++) {
+      blank += arr[i] + "|";
+    }
+    console.log(blank);*/
+
+    // 将数组中的0项去掉，剩余的数生成一个新的数组
+    /*  var arr = [0, 10, 0, 20, 0, 40, 0, 50];
+      var newArr = [];
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i] != 0) {
+          newArr[newArr.length] = arr[i];
+        }
+      }
+      console.log(newArr);*/
+
+    // 翻转数组
+    /*  var arr = [10, 20, 30, 40, 50];
+      for (var i = 0; i < (arr.length-1)  / 2; i++) {
+        var temp = arr [i];
+        arr[i] = arr[arr.length - 1 - i];
+        arr[arr.length - 1 - i] = temp;
+      }
+      console.log(arr);*/
+
+
+
+    // 冒泡排序
+    /*   var arr = [10, 20, 50, 40, 30];
+       for (var i = 0; i < arr.length - 1; i++) {
+         for (var j = 0; j < arr.length; j++) {
+           if (arr[j] < arr[j + 1]) {
+             var temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+           }
+         }
+       }
+       console.log(arr);*/
+
+
+    // break continue 联系
+    /*    var month = parseInt(prompt("请输入月份"));
+        switch (month) {
+          case 1:
+          case 3:
+          console.log("天数为31天");
+          break;
+          case 4:
+          case 6:
+          console.log("天数为30天");
+          break;
+          default:
+          console.log("请输入正确的月份");
+        }*/
+
+    // var sum = 0;
+    // for (var i = 200; i < 300; i++) {
+    //   if (i % 2 == 0) {
+    //     if (true) {
+    //       i++;
+    //       continue;
+    //     }
+    //   }
+    //   sum += i;
+    // }
+    // console.log(sum);
+    //
+    // var sum = 0;
+    // var i = 200;
+    // for (var j = 1; j < 4; j++) {
+    //   while (i <= 300) {
+    //     if (i % 2 == 0) {
+    //       if (true) {
+    //         i++;
+    //         /*continue;*/ break;
+    //       }
+    //     }
+    //     sum += i;;
+    //     i++;
+    //   }
+    //     console.log(sum);
+    // }
+
+    var a = !!"123";
+    console.log(a);
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>

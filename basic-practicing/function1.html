@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!--   <style>
+    div {
+      height: 200px;
+      width: 300px;
+      background-color: pink;
+    }
+  </style>
+ -->
+
+  <script>
+    /*   function MyMax() {
+                                                                                      //添加方法
+                                                                                      this.getMax = function() {
+                                                                                        var max = arguments[0];
+                                                                                        for (var i = 0; i < arguments.length; i++) {
+                                                                                          if (max < arguments[i]) {
+                                                                                            max = arguments[i];
+                                                                                          }
+                                                                                        }
+                                                                                        return max;
+                                                                                      }
+                                                                                    }
+                                                                                    //实例对象
+                                                                                    var p = new MyMax();
+                                                                                    var result = p.getMax(10, 2, 20, 20, 50, 2, 30);
+                                                                                    console.log(result); */
+
+    //随机产生一个十六进制额颜色值
+
+
+    /*   function getColor() {
+        var str = "#";
+        //十六进制的值的数组
+        var arr  = ["1", "2", "3", "4", "5", "6","7", "8", "9", "a", "b", "c", "d", "e", "f"];
+        //随机生成6个十六进制的数
+        for (var i = 0; i < 6; i++) {
+          var num = parseInt(Math.random()*16);
+          str += arr[num];
+        }
+        return str;
+      }
+      // console.log(getColor());
+
+      window.onload = function() {
+        document.getElementById("ha").style.backgroundColor = getColor();
+      } //为什么会增加一个style呢？
+     */
+
+    //获取指定的日期和时间（格式化）
+    /*   function getDate(dt) {
+        //获取年月日小时分秒
+        var year = dt.getFullYear(dt);
+        var month = dt.getMonth(dt) + 1; //注意需要加1 爱国人从0开始算月份
+        var day = dt.getDay(dt);
+        var hours = dt.getHours(dt);
+        var minutes = dt.getMinutes(dt);
+        var seconds = dt.getSeconds(dt);
+
+        //在日期小时分钟秒小于10的时候在前面加一个0
+
+        month = month < 10 ? "0" + month : month;
+        day = day < 10 ? "0" + day : day;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        return year + "年" + month + "月" + day + "日" +" "+  hours + ":" + minutes + ":" + seconds;
+      }
+      console.log(getDate(new Date())); */
+
+
+
+
+
+    /*   function object(o) {
+        function F() {}
+        F.prototype = o;
+        return new F();
+      }
+
+      function createAnother(original) {
+        var clone = object(original);
+        clone.sayHi = function() {
+          alert("hi");
+        };
+        return clone;
+      }
+
+      var person = {
+        name: "qin",
+        friends: ["hong", "ni"]
+      }
+      var anotherPerson = createAnother(person);
+      /* anotherPerson.sayHi();
+      console.log(person.name);
+      person.sayHi(); */
+
+
+
+  </script>
+
+
+
+</head>
+
+<body>
+  <div id="ha"></div>
+</body>
+
+</html>
