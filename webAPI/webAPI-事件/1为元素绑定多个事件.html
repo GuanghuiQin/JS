@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="common.js">
+  </script>
+  <input type="button" id="btn" value="按钮">
+  <script>
+    /*   my$("btn").onclick = function() {
+                      console.log("哎呀你好");
+                    }
+                    my$("btn").onclick = function() {
+                      console.log("你快走把");
+                    }
+                    my$("btn").onclick = function() {
+                      console.log("我又来了");
+                    } */
+
+    //谷歌，搜狐用 IE8不支持 ———— addEventListener("无on事件类型"，事件处理函数，false)
+
+
+    /* my$("btn").addEventListener("click", function() {
+      console.log("哎呀你好");
+    }, false);
+    my$("btn").addEventListener("click", function() {
+      console.log("你快走把");
+    }, false);
+    my$("btn").addEventListener("click", function() {
+      console.log("我又来了");
+    }, false); */
+
+    //只有 IE8 支持 ————用 attachEvent("有on事件类型"，事件处理函数)
+    /*   my$("btn").attachEvent("onclik", function() {
+        console.log("哎呀你好");
+      })
+      my$("btn").attachEvent("onclik", function() {
+        console.log("你快走把");
+      })
+      my$("btn").attachEvent("onclik", function() {
+        console.log("我又来了");
+      }) */
+
+
+    //兼容代码   绑定任意事件，任意元素，事件的类型，事件处理函数
+
+    function addEventListener(element, type, fn) {
+      if (element.addEventListener) {
+        element.addEventListener(type, fn, false)
+      } else {
+        if (element.attachEvent) {
+          element.attachEvent("on" + type, fn);
+        }
+        element["on" + type] = fn; //注意此处的写法，对象的属性的两种写法！！！！！！
+      }
+    }
+
+    my$("btn").addEventListener("click", function() {
+      console.log("haha ")
+    }, false)
+    my$("btn").addEventListener("click", function() {
+      console.log("嘿嘿")
+    }, false)
+    my$("btn").addEventListener("click", function() {
+      console.log("花花 ")
+    }, false)
+  </script>
+
+</body>
+
+</html>

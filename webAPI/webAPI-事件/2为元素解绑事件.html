@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* //this 关键字的运用
+    //闭包
+  var add = (function() {
+    var counter = 0;
+    return function() {
+      return counter +=1;
+    }
+  })(); */
+  /* add();
+  add();
+  add();
+  add();
+ */
+/*   function f1() {
+    var n =2;
+    var nadd = function() {n+=10};
+    function f2() {
+      n+=1
+      alert(n);
+    }
+    return f2;
+  }
+ var result = f1();
+  result();
+  nadd();
+  result(); */
+
+
+
+  /* var names = "this window";
+  var object ={
+      names : "my object",
+      getNameFunc : function() {
+        return function() {
+          return this.names;
+        };
+      }
+  };
+  alert(object.getNameFunc()()); */
+ var names = "this window";
+  var object ={
+      names : "my object",
+      getNameFunc : function() {
+        var that = this;
+        return function() {
+          return that.names;
+        };
+      }
+  };
+  alert(object.getNameFunc()());
+  </script>
+
+</body>
+</html>

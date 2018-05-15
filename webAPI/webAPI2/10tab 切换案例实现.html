@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+
+     li {
+       list-style: none;
+     }
+    #main {
+      width: 600px;
+      height: 500px;
+      margin: 200px auto;
+      text-align: center;
+      background-color: pink;
+      overflow: hidden;
+    }
+    #header li{
+      line-height: 100px;
+      float: left;
+      width: 150px;
+      height: 100px;
+    }
+    #header .bgc {
+        background-color: hotpink;
+      }
+
+    #arti {
+      width: 100%;
+      height: 400px;
+      margin: 100px 0;
+      background-color: hotpink;
+    }
+
+    #arti li {
+      display: none
+    }
+   #arti .content {
+      display: block;
+    }
+</style>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <li class="bgc">体育</li>
+      <li>娱乐</li>
+      <li>新闻</li>
+      <li>综合</li>
+    </div>
+    <div id="arti">
+      <li class="content">体育部分</li>
+      <li>娱乐部分</li>
+      <li>新闻部分</li>
+      <li>综合部分</li>
+    </div>
+  </div>
+  <script>
+  //  核心问题为 如何在不出发闭包的情况下执行该代码
+    var list1 = document.getElementById("header").getElementsByTagName("li");
+    var list2 = document.getElementById("arti").getElementsByTagName("li");
+    for (var i = 0; i < list1.length; i++) {
+      list1[i].setAttribute("index",i);   //取得索引
+      list1[i].onclick = function () {
+        for (var j = 0; j < list1.length; j++) {
+          list1[j].removeAttribute("class");
+          list2[j].removeAttribute("class");
+        }
+        /* this.className = "bgc";    *///一定要用this，不然会出现闭包现象！！！
+        this.setAttribute("class", "bgc");
+        var num = this.getAttribute("index") ;
+        list2[num].setAttribute("class", "content");
+      };
+    }
+
+  </script>
+</body>
+
+</html>

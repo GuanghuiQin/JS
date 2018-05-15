@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+
+</head>
+
+<body>
+  <input type="button" value="变色" id="btn" />
+  <ul id="uu">
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  <li>how are you ?</li>
+  </ul>
+  <script>
+    var list = document.getElementById("uu").children;
+    document.getElementById("btn").onclick = function() {
+      for (var i = 0; i < list.length; i++) {
+        if (i % 2 == 0) {
+          list[i].style.backgroundColor = "pink";
+        }
+      }
+    };
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+<script>
+  //获取样式中的属性
+  //谷歌火狐支持
+  /* window.getComputedStyle(element,null).left */
+  /* /["left"] */ ;
+  //IE8支持
+  /*   element.currentStyle.left */
+
+
+  //获得任意一个元素的任意属性值
+  function getStyle(element, attr) {
+    return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];
+  }
+</script>

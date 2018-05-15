@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      height: 200px;
+      width: 200px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="button" id = "btn" value="创建列表">
+  <div id="dv"></div>
+  <script>
+  var arr = [{name:"百度",href:"http://www.baidu.com"},
+    {name:"谷歌",href:"http://www.google.com"},
+    {name:"优酷",href:"http://www.youku.com"},
+    {name:"土豆",href:"http://www.tudou.com"},
+    {name:"快播",href:"http://www.kuaibo.com"},
+    {name:"爱奇艺",href:"http://www.aiqiyi.com"}
+];
+  document.getElementById("btn").onclick = function() {
+    var tt = document.createElement("table");
+    tt.border = "1";  //注意没有style，因为那样的话表格中间就没有边框了
+    tt.style.borderSpacing = "0";
+    document.getElementById("dv").appendChild(tt);
+    for (var i = 0; i< arr.length; i++) {
+      var tr = document.createElement("tr");
+      tt.appendChild(tr);
+      var td1 = document.createElement("td");
+      td1.innerHTML = arr[i].name;
+      var td2 = document.createElement("td");
+      td2.innerHTML = "<a href=" + arr[i].href+">"+ arr[i].name+"</a>"; //注意一下书写的格式
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+    }
+  };
+
+
+  </script>
+</body>
+</html>

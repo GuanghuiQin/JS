@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #box {
+      width: 450px;
+      margin: 200px auto;
+    }
+
+    #txt {
+      margin: 0px;
+      width: 335px;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <input type="text" id="txt" value="">
+    <input type="button" value="搜索" id="btn">
+  </div>
+
+  <script>
+    //公共函数
+    function my$(id) {
+      return document.getElementById(id);
+    }
+
+    //数据储存
+    var keyWords = ["今天是星期一啊", "今天是星期二啊", "今天是星期三啊", "今天是星期四啊", "星期一啊", "星期三啊", "星期五啊", "三月份", "三月日", "三月和"];
+    //注册按键松开事件
+    /*  my$("txt").onkeyup = function() {
+       //创建一个数组用来存储相匹配的数据
+       var arr=[];
+       //先判断是否已经存在了div，如果存在，将它删除
+       if (my$("dv")) {
+         my$("box").removeChild(my$("dv"));
+       }
+       //循环遍历数组，看是否有跟文本内容一样的，将其放入到一个新的数组
+       for (var i = 0; i < keyWords.length; i++) {
+         if (keyWords[i].indexOf(this.value) == 0) {
+           arr.push(keyWords[i]);
+         }
+       }
+       //判断是否应该建一个div
+       if (this.value.length !=0 && arr.length !=0) {
+       //创建一个div
+       var dv = document.createElement("div");
+       dv.id = "dv";
+       dv.style.width =  "350px";
+       dv.style.margin = "0";
+       dv.style.border = "1px solid #888";
+       my$("box").appendChild(dv);
+       //再创建p元素存储数据
+       for (var j= 0; j < arr.length; j++) {
+         var pl = document.createElement("p");
+         pl.innerHTML = arr[j];
+         pl.style.margin = "0";
+         pl.style.paddingLeft = "15px";
+         my$("dv").appendChild(pl);
+         pl.onmouseover = function() {
+           this.style.backgroundColor = "hotpink";
+         };
+         pl.onmouseout = function() {
+           this.style.backgroundColor = "";
+         };
+       }
+      }
+    }; */
+
+
+    //第二遍书写
+    my$("txt").onkeyup = function() {
+      var arr = [];
+      if (my$("dv")) {
+        my$("box").removeChild(my$("dv"));
+      }
+      for (var i = 0; i < keyWords.length; i++) {
+        if (keyWords[i].indexOf(this.value) == 0) {
+          arr.push(keyWords[i]);
+        }
+      }
+      if (this.value.length != 0 && arr.length != 0) {
+        var dv = document.createElement("div");
+        dv.id = "dv";
+        dv.style.margin = "0";
+        dv.style.width = "350px";
+        dv.style.border = "1px solid #999";
+        my$("box").appendChild(dv);
+
+        for (var j = 0; j < arr.length; j++) {
+          var pl = document.createElement("p");
+          pl.innerHTML = arr[j];
+          pl.style.paddingLeft = "15px";
+          pl.style.margin = "0";
+          my$("dv").appendChild(pl);
+          pl.onmouseover = function() {
+            var a = parseInt(Math.random() * 4 + 5);
+            var b = parseInt(Math.random() * 4 + 5);
+            var c = parseInt(Math.random() * 4 + 5);
+            this.style.backgroundColor = "#" + a + a + b + b + c + c;
+          }
+          pl.onmouseout = function() {
+            this.style.backgroundColor = "";
+          }
+        }
+
+      }
+    };
+  </script>
+</body>
+
+</html>

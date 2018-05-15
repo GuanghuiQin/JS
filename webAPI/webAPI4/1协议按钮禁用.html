@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>webAPI</title>
+</head>
+
+<body>
+  <textarea name="name" rows="8" cols="80">这是一个漂亮的地方！</textarea><br>
+  <input type="button" value="请仔细阅读协议(5)" id="btn" disabled>
+  <script>
+    var i = 5;
+    f1();
+    var timeId = setInterval(f1, 1000);
+
+    function f1() {
+      if (i == 0) {
+        clearInterval(timeId);
+        document.getElementById("btn").disabled = false;
+        document.getElementById("btn").value = "同意";
+      } else {
+        document.getElementById("btn").value = "请仔细阅读协议(" + i + ")";
+        i--;
+      }
+    }
+  </script>
+</body>
+
+</html>

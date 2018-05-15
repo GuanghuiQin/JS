@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #box {
+      width: 500px;
+      height: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 200px auto;
+    }
+
+    #dv {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #img {
+      width: 3000px;
+      position: absolute;
+    }
+
+    li {
+      float: left;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #xiabiao {
+      position: absolute;
+      width: 150px;
+      height: 20px;
+      bottom: 10px;
+      right: 0px;
+      text-align: center;
+    }
+
+    #xiabiao li {
+      float: left;
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      box-sizing: border-box;
+      /*  为了出现边框效果 */
+      border: 1px solid #fff;
+      color: #444;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    #fl,
+    #fr {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 35px;
+      background-color: rgba(20, 20, 20, .4);
+      color: rgba(255, 255, 255, .5);
+      margin-top: -25px;
+      top: 50%;
+      display: none;
+      cursor: pointer;
+    }
+
+    #fl {
+      left: 0px;
+      padding-right: 15px;
+    }
+
+    #fr {
+      right: 0px;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <div id="dv">
+      <ul id="img">
+        <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+      </ul>
+      <ul id="xiabiao">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <div id="fl">
+        《</div>
+      <div id="fr">》</div>
+    </div>
+  </div>
+  <!--   引入js文件 -->
+  <script src="common.js"></script>
+  <script>
+    function my$(id) {
+      return document.getElementById(id);
+    }
+
+    function animate(element, target) {
+      clearInterval(element.timeId);
+      var step = 10;
+      var left = element.offsetLeft;
+      step = left > target ? -step : step;
+      element.timeId = setInterval(function() {
+        if (Math.abs(left - target) < Math.abs(step)) {
+          clearInterval(element.timeId);
+          element.style.left = target + "px";
+        } else {
+          left += step;
+          element.style.left = left + "px";
+        }
+      }, 10);
+    }
+
+    //大致上定义需要的内容
+    var dv = my$("dv");
+    var img = my$("img");
+    var xb = my$("xiabiao");
+    var xbl = xb.getElementsByTagName("li");
+    var fl = my$("fl");
+    var fr = my$("fr");
+    var pic = 0; //一定要是全局变量！！！！！！
+    //先处理下标的问题
+    //当鼠标经过的时候，背景颜色变红，并且图片移动到相应的位置
+    for (var i = 0; i < xbl.length; i++) {
+      xbl[i].setAttribute("index", i);
+      xbl[i].onmouseover = function() {
+        for (var j = 0; j < xbl.length; j++) {
+          xbl[j].style.backgroundColor = "";
+        }
+        this.style.backgroundColor = "#f33"; //要用this ，不然无法正确识别到i
+        pic = this.getAttribute("index"); //这一步很关键！ 当从没有经过下标的时候，自动播放就从0开始，当经过了下标的时候，自动播放就需要从这个时候开始。所以需要一格变量来存储这个当前位置！！！
+        animate(img, -pic * 500); //注意，调用这个函数的时候。ul需要时绝对定位，其offsetLeft值也是根据父项来定的！！
+      };
+    }
+    //将第一个li设置为默认的红色
+    xbl[0].style.backgroundColor = "#f33";
+
+    //自动播放
+    img.appendChild(img.children[0].cloneNode(true));
+
+    var timeId = setInterval(changeImg, 1000)
+
+    //右侧按钮
+    fr.onclick = changeImg;
+
+
+    function changeImg() {
+      if (pic == 5) {
+        pic = 0;
+        img.style.left = "0px";
+      }
+      pic++;
+      animate(img, -pic * 500);
+      for (var j = 0; j < xbl.length; j++) {
+        xbl[j].style.backgroundColor = "";
+      }
+      if (pic == 5) {
+        xbl[0].style.backgroundColor = "#f33";
+      } else {
+        xbl[pic].style.backgroundColor = "#f33";
+      }
+    }
+
+    //左侧按钮
+    fl.onclick = function() {
+      if (pic == 0) {
+        pic = 5;
+        img.style.left = -pic * 500 +"px";
+        xbl[4].style.backgroundColor = "#f33";
+      }
+      pic--;
+      animate(img, -pic * 500);
+      for (var j = 0; j < xbl.length; j++) {
+        xbl[j].style.backgroundColor = "";
+      }
+      xbl[pic].style.backgroundColor = "#f33";
+    };
+    //两侧按钮的实现——右键
+    //当鼠标经过div的时候显现出来，离开时隐藏
+    dv.onmouseover = function() {
+      fr.style.display = "block";
+      fl.style.display = "block";
+      clearInterval(timeId);
+    }
+    dv.onmouseout = function() {
+      fr.style.display = "none";
+      fl.style.display = "none";
+      timeId = setInterval(changeImg, 1000)
+    }
+    //当鼠标点击右键的时候，图片向左移动一格。
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #box {
+      width: 500px;
+      height: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 200px auto;
+    }
+
+    #dv {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #img {
+      width: 3000px;
+      position: absolute;
+    }
+
+    li {
+      float: left;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #xiabiao {
+      position: absolute;
+      width: 150px;
+      height: 20px;
+      bottom: 10px;
+      right: 0px;
+      text-align: center;
+    }
+
+    #xiabiao li {
+      float: left;
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      box-sizing: border-box;
+      /*  为了出现边框效果 */
+      border: 1px solid #fff;
+      color: #444;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    #fl,
+    #fr {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 35px;
+      background-color: rgba(20, 20, 20, .4);
+      color: rgba(255, 255, 255, .5);
+      margin-top: -25px;
+      top: 50%;
+      display: none;
+      cursor: pointer;
+    }
+
+    #fl {
+      left: 0px;
+      padding-right: 15px;
+    }
+
+    #fr {
+      right: 0px;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <div id="dv">
+      <ul id="img">
+        <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+      </ul>
+      <ul id="xiabiao">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <div id="fl">
+        《</div>
+      <div id="fr">》</div>
+    </div>
+  </div>
+  <script>
+    function my$(id) {
+      return document.getElementById(id);
+    }
+
+    function animate(element, target) {
+      clearInterval(element.timeId);
+      var step = 10;
+      var left = element.offsetLeft;
+      step = left > target ? -step : step;
+      element.timeId = setInterval(function() {
+        if (Math.abs(left - target) < Math.abs(step)) {
+          clearInterval(element.timeId);
+          element.style.left = target + "px";
+        } else {
+          left += step;
+          element.style.left = left + "px";
+        }
+      }, 10)
+    }
+
+    var dv = my$("dv");
+    var img = my$("img");
+    img.appendChild(img.children[0].cloneNode(true));
+    var xb = my$("xiabiao");
+    var xbl = xb.getElementsByTagName("li");
+    var fl = my$("fl");
+    var fr = my$("fr");
+    var pic = 0;
+    for (var i = 0; i < xbl.length; i++) {
+      xbl[i].setAttribute("index", i);
+      xbl[i].onmouseover = function() {
+        for (var j = 0; j < xbl.length; j++) {
+          xbl[j].style.backgroundColor = "";
+        }
+        this.style.backgroundColor = "#f33";
+        pic = this.getAttribute("index");
+        animate(img, -pic * 500);
+      };
+    }
+    xbl[0].style.backgroundColor = "#f33";
+    var timeId = setInterval(f1, 1000);
+    fr.onclick = f1;
+
+    function f1() {
+      if (pic == 5) {
+        pic = 0;
+        img.style.left = "0px";
+      }
+      pic++;
+      animate(img, -pic * 500);
+      for (var j = 0; j < xbl.length; j++) {
+        xbl[j].style.backgroundColor = "";
+      }
+      if (pic == 5) {
+        xbl[0].style.backgroundColor = "#f33";
+      }
+      xbl[pic].style.backgroundColor = "#f33";
+    }
+
+    dv.onmouseover = function() {
+      fr.style.display = "block";
+      fl.style.display = "block";
+      clearInterval(timeId);
+    };
+    dv.onmouseout = function() {
+      fr.style.display = "none";
+      fl.style.display = "none";
+      timeId = setInterval(f1, 1000);
+    };
+
+    fl.onclick = function() {
+      if (pic == 0) {
+        pic = 5;
+        img.style.left = -pic * 500 + "px";
+      }
+      pic--;
+      animate(img, -pic * 500);
+      for (var j = 0; j < xbl.length; j++) {
+        xbl[j].style.backgroundColor = "";
+      }
+      xbl[pic].style.backgroundColor = "#f33";
+    };
+  </script>
+</body>
+
+</html>

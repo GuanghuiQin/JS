@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+      width: 200px;
+      height: 150px;
+      background-color: red;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="button" value="变宽" id="btn" />
+  <div id="dv"></div>
+  <script>
+    document.getElementById("btn").onclick = function() {
+      var wh = 200;
+      var timeId = setInterval(function() {
+        wh += 5;
+        if (wh == 800) {
+          clearInterval(timeId);
+        } else {
+          document.getElementById("dv").style.width = wh + "px";
+        }
+      }, 20);
+    };
+  </script>
+
+</body>
+
+</html>

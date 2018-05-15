@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #dv {
+      background-color: green;
+      width: 300px;
+      height: 300px;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="button" id="btn" value="按钮">
+  <input type="button" id="btn2" value="按钮2">
+  <div id="dv"></div>
+  <script>
+    document.getElementById("btn").onclick = function() {
+      animate(document.getElementById("dv"), 400);
+    };
+    document.getElementById("btn2").onclick = function() {
+      animate(document.getElementById("dv"), 800);
+    };
+
+    function animate(element, target) {
+      clearInterval(element.timeId);
+      var step = 10;
+      var left = element.offsetLeft;
+      step = left > target ? -step : step;
+      element.timeId = setInterval(function() {
+        if (Math.abs(left - target) < Math.abs(step)) {
+          clearInterval(element.timeId);
+          element.style.left = target + "px";
+        } else {
+          left += step;
+          element.style.left = left + "px";
+        }
+      }, 10)
+    }
+  </script>
+
+</body>
+
+</html>

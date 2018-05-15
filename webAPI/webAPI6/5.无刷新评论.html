@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    table {
+      border: 1px solid #f33;
+      border-spacing: 0;
+    }
+
+    td {
+      border: 1px solid #f33;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <table id="tb">
+      <tr>
+        <td>数学</td>
+        <td>150分</td>
+      </tr>
+    </table>
+  </div>
+  <div>昵称：<input type="text" placeholder="昵称" id="txt"><br>
+    <textarea name="name" rows="10" cols="50" placeholder="评论些什么吧~" id="comment"></textarea>
+    <input type="button" value="评论一下" id="btn">
+  </div>
+  <script>
+    function my$(id) {
+      return document.getElementById(id);
+    }
+    var txt = my$("txt");
+    var tb = my$("tb");
+    var comment = my$("comment");
+    my$("btn").onclick = function() {
+      if (txt.value.length != 0 && comment.value.length != 0) {
+        var tr = document.createElement("tr");
+        tb.appendChild(tr);
+        var td = document.createElement("td");
+        tr.appendChild(td);
+        td.innerHTML = txt.value;
+        var td = document.createElement("td");
+        tr.appendChild(td);
+        td.innerHTML = comment.value;
+        txt.value = "";
+        comment.value = "";
+      }
+    };
+  </script>
+</body>
+
+</html>

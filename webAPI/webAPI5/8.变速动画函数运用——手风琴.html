@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    ul {
+      list-style: none;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+      width: 1150px;
+      height: 400px;
+      margin: 50px auto;
+      border: 1px solid red;
+      overflow: hidden;
+    }
+
+    div li {
+      width: 240px;
+      height: 400px;
+      float: left;
+    }
+
+    div ul {
+      width: 1300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <script>
+    function getStyle(element, attr) {
+      return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr] || 0;
+    }
+
+    function animate(element, json, fn) {
+      clearInterval(element.timeId);
+      element.timeId = setInterval(function() {
+        var flag = true; //用于判断前一个动画是够结束
+        //遍历对象里面的属性及值
+        for (var key in json) {
+          //判断是否是透明度属性
+          if (key == "opacity") {
+            var current = getStyle(element, key) * 100;
+            var target = json[key] * 100;
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            element.style[key] = current / 100;
+          }
+          //判断是否是zIndex属性
+          else if (key == "zIndex") {
+            element.style[key] = json[key];
+          }
+          //普通属性
+          else {
+            var current = parseInt(getStyle(element, key));
+            var target = json[key];
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            element.style[key] = current + "px";
+          }
+          //判断是否都达到了终点
+          if (current != target) {
+            flag = false;
+          }
+        }
+        //当动画结束的时候清除定时器并判断是够有下一步动画
+        if (flag) {
+          clearInterval(element.timeId);
+          if (fn) {
+            fn();
+          }
+        }
+      }, 10);
+    }
+
+    var list = document.getElementById("box").getElementsByTagName("li");
+    for (var i = 0; i < list.length; i++) {
+      list[i].style.backgroundImage = "url(images/" + (i + 1) + ".jpg)";
+      list[i].onmouseover = mouseoverHandle;
+      list[i].onmouseout = mouseoutHandle;
+    }
+
+    function mouseoverHandle() {
+      for (var i = 0; i < list.length; i++) {
+        animate(list[i], {
+          width: 100
+        });
+      }
+      animate(this, {
+        width: 800
+      });
+    }
+
+    function mouseoutHandle() {
+      for (var i = 0; i < list.length; i++) {
+        animate(list[i], {
+          width: 240
+        });
+      }
+    }
+  </script>
+
+</body>
+
+</html>

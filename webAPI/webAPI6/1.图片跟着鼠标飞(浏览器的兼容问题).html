@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 2000px;
+    }
+
+    img {
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="bird.png" alt="" id="im" />
+  <script>
+    //浏览器的兼容问题
+    // 1.window.event和事件参数e
+    // 2.clientX clientY
+    // 3.scrollLeft  scrollTop
+    // 4.pageX, pageY 和 clientX,clientY
+
+    //将函数封装在一个对象中，各个函数作为其属性调用
+
+    var evt = {  //不能使用event这个词，可能是因为关键字的原因
+      getEvent: function(e) {
+        return window.event || e;
+      },
+      getClientX: function(e) {
+        return this.getEvent(e).clientX;
+      },
+      getClientY: function(e) {
+        return this.getEvent(e).clientY;
+      },
+      getScrollLeft: function() {
+        return window.pageXOffset || document.body.scrollLeft || document.documentElement.scrollLeft;
+      },
+      getScrollTop: function() {
+        return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+      },
+      getPageX: function(e) {
+        return this.getEvent(e).PageX ? this.getEvent(e).pageX : this.getClientX(e) + this.getScrollLeft();
+      },
+      getPageY: function(e) {
+        return this.getEvent(e).PageY ? this.getEvent(e).pageY : this.getClientY(e) + this.getScrollTop();
+      }
+    };
+    document.onmousemove = function(e) {
+      document.getElementById("im").style.left = evt.getPageX(e) + "px";
+      document.getElementById("im").style.top = evt.getPageY(e) + "px";
+    };
+  </script>
+</body>
+
+</html>

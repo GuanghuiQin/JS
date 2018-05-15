@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      height: 200px;
+      width: 200px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="button" id="btn" value="按钮1">
+  <input type="button" id="btn2" value="删除第一个按钮">
+  <input type="button" id="btn3" value="删除所有按钮">
+  <div id="dv"></div>
+  <script>
+    var i = 0;
+    document.getElementById("btn").onclick = function() {
+      i++;
+      var bt = document.createElement("input");
+      bt.type = "button";
+      bt.value = "按钮" + i;
+      document.getElementById("dv").insertBefore(bt, document.getElementById("dv").firstElementChild);
+    };
+    document.getElementById("btn2").onclick = function() {
+      document.getElementById("dv").removeChild(document.getElementById("dv").firstElementChild);
+    };
+    document.getElementById("btn3").onclick = function() {
+      while (document.getElementById("dv").firstElementChild) { //当没有明确的值用for进行循环的时候，可以用while语句进行循环！！！
+        document.getElementById("dv").removeChild(document.getElementById("dv").firstElementChild);
+      }
+    };zhi
+  </script>
+</body>
+
+</html>

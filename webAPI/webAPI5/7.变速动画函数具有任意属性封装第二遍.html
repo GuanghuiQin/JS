@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+
+      width: 200px;
+      height: 100px;
+      background-color: green;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    input {
+      z-index: 10;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="button" value="移动到400px" id="btn1" />
+  <div id="dv">
+  </div>
+  <script>
+    function getStyle(element, attr) {
+      return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr] || 0;
+    }
+
+    function animate(element, json, fn) {
+      clearInterval(element.timeId);
+      element.timeId = setInterval(function() {
+        var flag = true; //用于判断前一个动画是够结束
+        //遍历对象里面的属性及值
+        for (var key in json) {
+          //判断是否是透明度属性
+          if (key == "opacity") {
+            var current = getStyle(element, key) * 100;
+            var target = json[key] * 100;
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            element.style[key] = current / 100;
+          }
+          //判断是否是zIndex属性
+          else if (key == "zIndex") {
+            element.style[key] = json[key];
+          }
+          //普通属性
+          else {
+            var current = parseInt(getStyle(element,key));
+            var target = json[key];
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            element.style[key] = current + "px";
+          }
+          //判断是否都达到了终点
+          if (current != target) {
+            flag = false;
+          }
+        }
+        //当动画结束的时候清除定时器并判断是够有下一步动画
+        if (flag) {
+          clearInterval(element.timeId);
+          if (fn) {
+            fn();
+          }
+        }
+      }, 10);
+    }
+
+    document.getElementById("btn1").onclick = function() {
+
+      var json1 = {
+        "width": 400,
+        "height": 500,
+        "left": 500,
+        "top": 80,
+        "opacity": 0.2
+      };
+      animate(document.getElementById("dv"), json1, function() {
+        animate(document.getElementById("dv"), {
+          "width": 40,
+          "height": 50,
+          "left": 0,
+          "top": 0,
+          "opacity": 1,
+          "zIndex": 1000
+        });
+      });
+    };
+  </script>
+</body>
+
+</html>

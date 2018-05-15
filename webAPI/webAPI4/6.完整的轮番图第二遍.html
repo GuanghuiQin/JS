@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #box {
+      width: 500px;
+      height: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 200px auto;
+    }
+
+    #dv {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #img {
+      width: 3000px;
+      position: absolute;
+    }
+
+    li {
+      float: left;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #xiabiao {
+      position: absolute;
+      width: 150px;
+      height: 20px;
+      bottom: 10px;
+      right: 0px;
+      text-align: center;
+    }
+
+    #xiabiao li {
+      float: left;
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      box-sizing: border-box;
+      /*  为了出现边框效果 */
+      border: 1px solid #fff;
+      color: #444;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    #fl,
+    #fr {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 35px;
+      background-color: rgba(20, 20, 20, .4);
+      color: rgba(255, 255, 255, .5);
+      margin-top: -25px;
+      top: 50%;
+      display: none;
+      cursor: pointer;
+    }
+
+    #fl {
+      left: 0px;
+      padding-right: 15px;
+    }
+
+    #fr {
+      right: 0px;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <div id="dv">
+      <ul id="img">
+        <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+      </ul>
+      <ul id="xiabiao">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <div id="fl">
+        《</div>
+      <div id="fr">》</div>
+    </div>
+  </div>
+  <script>
+    //定义需要的函数或者引入公共文件
+    function my$(id) {
+      return document.getElementById(id);
+    }
+
+    function animate(element, target) {
+      clearInterval(element.timeId);
+      var step = 10;
+      var left = element.offsetLeft; //先获取初始值,注意offset获得的值没有单位
+      step = left > target ? -step : step;
+      element.timeId = setInterval(function() {
+        if (Math.abs(left - target) < Math.abs(step)) {
+          clearInterval(element.timeId);
+          element.style.left = target + "px"; //注意写法和单位
+        } else {
+          left += step;
+          element.style.left = left + "px";
+        }
+      }, 10);
+    }
+
+    //先定义各种变量
+    var dv = my$("dv");
+    var img = my$("img");
+    var xb = my$("xiabiao");
+    var fl = my$("fl");
+    var fr = my$("fr");
+    img.appendChild(img.children[0].cloneNode(true)); //先克隆第一张图片，供轮番图无缝连接用
+    var xbl = xb.getElementsByTagName("li");
+    var pic = 0; //定义全局变量——至关重要！因为需要它来关联下标、左右、自动播放三个功能！
+    //首先处理下标的问题，1.变色问题，2.图片移动  另需要设定一个属性index用于存储索引值！！
+    for (var i = 0; i < xbl.length; i++) {
+      xbl[i].setAttribute("index", i);
+      xbl[i].onmouseover = function() {
+        //变色问题——排他功能
+        for (var j = 0; j < xbl.length; j++) {
+          xbl[j].style.backgroundColor = "";
+        }
+        this.style.backgroundColor = "#f33";
+        //图片移动问题——索引值的运用
+        pic = this.getAttribute("index"); //注意不能用var，因为pic必须为全局变量，方便后面的关联。另外，获得属性值这一步也很重要。
+        animate(img, -pic * 500);
+      }
+    };
+    xbl[0].style.backgroundColor = "#f33";
+    //第二步，解决左右键的问题，由于自动播放相当于一直按右键，所以这两个可以一起处理，使用同一个函数。
+    var timeId = setInterval(clickHandle, 1000); //自动播放
+    fr.onclick = clickHandle; //右键点击事件
+    //调用的函数
+    function clickHandle() {
+      //pic为0到4的时候只需要切换就行，当pic为5且切换下一张图片的时候，立马将5改为0，并让ul的位置回到原点处。且在5的时候索引0的颜色为红色。
+      if (pic == 5) { //这是图片已经存在了1s钟后的判断，此时图片要调到第二张了
+        pic = 0;
+        img.style.left = "0px";
+      }
+      pic++;
+      animate(img, -pic * 500); //这是移动后的结果，此时这个图片将存在1s钟
+      for (var j = 0; j < xbl.length; j++) {
+        xbl[j].style.backgroundColor = "";
+      }
+      if (pic == 5) {
+        xbl[0].style.backgroundColor = "#f33";
+      } else {
+        xbl[pic].style.backgroundColor = "#f33";
+      }
+    }
+
+    //最后是左侧按钮
+    //当pic为0的时候，它已经存在了1s钟。此时需要切换到第五张图，ul和索引颜色均需要修改
+    fl.onclick = function() {
+      if (pic == 0) {
+        pic = 5;
+        img.style.left = -pic * 500 + "px"; //注意单位
+      }
+      pic--;
+      animate(img, -pic * 500);
+      for (var j = 0; j < xbl.length; j++) {
+        xbl[j].style.backgroundColor = "";
+      }
+      xbl[pic].style.backgroundColor = "#f33"; //因为所显示的图片为0-4，跟其索引一致，即无需修改。
+    }
+
+    dv.onmouseover = function() {
+      fr.style.display = "block";
+      fl.style.display = "block";
+      clearInterval(timeId);
+    }
+    dv.onmouseout = function() {
+      fr.style.display = "none";
+      fl.style.display = "none";
+      timeId = setInterval(clickHandle, 1000); //自动播放，此处没有var！！再次调用时要注意！！！
+    }
+  </script>
+</body>
+
+</html>
